@@ -68,13 +68,18 @@ tests:
         - pyproject.toml
     requirements:
       run:
-        - python !=${{ python_min }}.*
         - coverage
         - pytest
         - pytest-mock
         - if: win
           then:
             - m2-grep
+        # apparently some lingering abi3 issues
+        - if: build_platform == target_platform
+          then:
+            - python !=${{ python_min }}.*
+          else:
+            - python ${{ python_min }}.*
     script:
       - tach --help
       - tach --version

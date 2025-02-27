@@ -14,9 +14,7 @@ source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
   sha256: 0c221a51ddfce5a4d65183f0ff2ebda6fd4230c36eb39cf2021c1aeea84be81a
   patches:
-    - if: target_platform == "osx-arm64"
-      then:
-        - 0000-no-pyo3-auto-initialize.patch
+    - 0000-no-pyo3-auto-initialize.patch
 
 build:
   number: 1

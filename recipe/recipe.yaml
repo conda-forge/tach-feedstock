@@ -13,9 +13,11 @@ package:
 source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
   sha256: 0c221a51ddfce5a4d65183f0ff2ebda6fd4230c36eb39cf2021c1aeea84be81a
+  patches:
+    - 0000-no-pyo3-auto-initialize.patch
 
 build:
-  number: 0
+  number: 1
   skip: not (match(python, python_min ~ ".*") and is_abi3 == "true")
   python:
     version_independent: true
@@ -66,13 +68,18 @@ tests:
         - pyproject.toml
     requirements:
       run:
-        - python !=${{ python_min }}.*
         - coverage
         - pytest
         - pytest-mock
         - if: win
           then:
             - m2-grep
+        # apparently some lingering abi3 issues
+        - if: build_platform == target_platform
+          then:
+            - python !=${{ python_min }}.*
+          else:
+            - python ${{ python_min }}.*
     script:
       - tach --help
       - tach --version

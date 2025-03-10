@@ -17,7 +17,7 @@ source:
     - 0000-no-pyo3-auto-initialize.patch
 
 build:
-  number: 0
+  number: 1
   skip: not (match(python, python_min ~ ".*") and is_abi3 == "true")
   python:
     version_independent: true
@@ -28,6 +28,7 @@ build:
 
 requirements:
   build:
+    - ${{ compiler("c") }}
     - ${{ compiler("rust") }}
     - ${{ stdlib("c") }}
     - cargo-bundle-licenses
@@ -35,11 +36,7 @@ requirements:
       then:
         - python
         - cross-python_${{ target_platform }}
-        - crossenv
         - maturin >=${{ maturin_min }},<${{ maturin_max }}
-    - if: unix
-      then:
-        - ${{ compiler("c") }}
   host:
     - maturin >=${{ maturin_min }},<${{ maturin_max }}
     - pip
@@ -56,11 +53,16 @@ requirements:
     - stdlib-list >=0.10.0
     - tomli >=1.2.2
     - tomli-w >=1.0,<2.0
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
 
 tests:
   - python:
       pip_check: true
-      python_version: ${{ python_min }}.*
+      python_version:
+        - ${{ python_min }}.*
+        - 3.13.*
       imports: tach
   - files:
       source:
@@ -71,15 +73,10 @@ tests:
         - coverage
         - pytest
         - pytest-mock
+        - python !=${{ python_min }}.*
         - if: win
           then:
             - m2-grep
-        # apparently some lingering abi3 issues
-        - if: build_platform == target_platform
-          then:
-            - python !=${{ python_min }}.*
-          else:
-            - python ${{ python_min }}.*
     script:
       - tach --help
       - tach --version

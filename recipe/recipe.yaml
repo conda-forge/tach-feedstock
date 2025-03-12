@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.27.3"
+  version: "0.28.0"
   maturin_min: "1.5"
   maturin_max: "2.0"
 
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
-  sha256: a1404e831be06ea168abec8498dca147aad60faa93fc7430c2471519de07048a
+  sha256: 054f9e7c58754054d06b0935df2400c4200c7d00d19443bf9212a9911d3bb684
   patches:
     - 0000-no-pyo3-auto-initialize.patch
 

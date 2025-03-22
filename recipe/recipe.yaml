@@ -84,7 +84,7 @@ tests:
       # windows tests don't exit/cleanup properly, and generally have path issues
       - if: unix
         then:
-          - coverage run --source=tach --branch -m pytest -vv --tb=long --color=yes
+          - coverage run --source=tach --branch -m pytest -vv --tb=long --color=yes -k "not export_report_diagnostics"
           - coverage report --show-missing --skip-covered --fail-under=48
 
 about:

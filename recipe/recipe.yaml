@@ -67,6 +67,7 @@ tests:
   - files:
       source:
         - python/tests/
+        - Cargo.toml
         - pyproject.toml
     requirements:
       run:

@@ -17,7 +17,7 @@ source:
     - 0000-no-pyo3-auto-initialize.patch
 
 build:
-  number: 0
+  number: 1
   skip: not (match(python, python_min ~ ".*") and is_abi3 == "true")
   python:
     version_independent: true

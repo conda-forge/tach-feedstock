@@ -5,6 +5,7 @@ context:
   version: "0.32.0"
   maturin_min: "1.5"
   maturin_max: "2.0"
+  python_check_max: "3.14"
 
 package:
   name: tach
@@ -13,8 +14,6 @@ package:
 source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
   sha256: 62a19bc6373f1d1673e48e5131092e2cd8bda0658193f1cdb9e3143fb7761bff
-  patches:
-    - 0000-no-pyo3-auto-initialize.patch
 
 build:
   number: 0
@@ -46,11 +45,10 @@ requirements:
     - gitpython >=3.1,<4.0
     - networkx >=2.6,<4.0
     - prompt-toolkit >=3.0,<4.0
-    - pydot >=2,<4
+    - pydot >=2,<5
     - python
     - pyyaml >=6.0,<7.0
-    - rich >=13.0,<14.0
-    - stdlib-list >=0.10.0
+    - rich >=13.0,<15.0
     - tomli >=1.2.2
     - tomli-w >=1.0,<2.0
   ignore_run_exports:
@@ -62,7 +60,7 @@ tests:
       pip_check: true
       python_version:
         - ${{ python_min }}.*
-        - 3.13.*
+        - ${{ python_check_max }}.*
       imports: tach
   - files:
       source:

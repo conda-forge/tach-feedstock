@@ -48,7 +48,7 @@ requirements:
     - pydot >=2,<5
     - python
     - pyyaml >=6.0,<7.0
-    - rich >=13.0,<15.0
+    - rich >=13.0
     - tomli >=1.2.2
     - tomli-w >=1.0,<2.0
   ignore_run_exports:

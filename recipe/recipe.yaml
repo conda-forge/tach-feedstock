@@ -89,7 +89,8 @@ about:
   license_file:
     - LICENSE
     - THIRDPARTY.yml
-  homepage: https://github.com/gauge-sh/tach
+  homepage: https://pypi.org/project/tach
+  repository: https://github.com/tach-org/tach
   documentation: https://docs.gauge.sh
 
 extra:

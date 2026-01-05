@@ -17,7 +17,7 @@ source:
 
 build:
   number: 0
-  skip: not (match(python, python_min ~ ".*") and is_abi3)
+  skip: not (is_python_min and is_abi3)
   python:
     version_independent: true
     entry_points:

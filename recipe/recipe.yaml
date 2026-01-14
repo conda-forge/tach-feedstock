@@ -16,10 +16,10 @@ source:
   sha256: 92ffe91070636eee6b45a8512bdc594fd15c0f5be9300dbbe85d0b36d00f00d1
 
 build:
-  number: 0
-  skip: not (is_python_min and is_abi3)
+  number: 1
+  skip: is_abi3 and not is_python_min
   python:
-    version_independent: true
+    version_independent: ${{ is_abi3 }}
     entry_points:
       - tach = tach.start:start
   script:
@@ -40,7 +40,9 @@ requirements:
     - maturin >=${{ maturin_min }},<${{ maturin_max }}
     - pip
     - python
-    - python-abi3
+    - if: is_abi3
+      then:
+      - python-abi3
   run:
     - gitpython >=3.1,<4.0
     - networkx >=2.6,<4.0
@@ -56,12 +58,18 @@ requirements:
       - cross-python_${{ target_platform }}
 
 tests:
-  - python:
-      pip_check: true
-      python_version:
-        - ${{ python_min }}.*
-        - ${{ python_check_max }}.*
-      imports: tach
+  - if: is_abi3
+    then:
+      python:
+        imports: tach
+        pip_check: true
+        python_version:
+          - ${{ python_min }}.*
+          - ${{ python_check_max }}.*
+    else:
+      python:
+        imports: tach
+        pip_check: true
   - files:
       source:
         - python/tests/
@@ -72,7 +80,7 @@ tests:
         - coverage
         - pytest
         - pytest-mock
-        - python !=${{ python_min }}.*
+        - python ${{ "!=" ~ python_min ~ ".*" if is_abi3 }}
     script:
       - tach --help
       - tach --version

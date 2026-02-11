@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.33.2"
+  version: "0.33.3"
   maturin_min: "1.5"
   maturin_max: "2.0"
   python_check_max: "3.14"
@@ -13,7 +13,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
-  sha256: 26621f7d30e364e2b255815706dc24d7185dbfad34a50ed2af9604e7d9c6e60f
+  sha256: e5c049cb1f677fcbaaef020fb8a9bff150b9a13914a326c7686d0ea3ed9ebcea
 
 build:
   number: 1

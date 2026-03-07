@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.33.4"
+  version: "0.34.0"
   maturin_min: "1.5"
   maturin_max: "2.0"
   python_check_max: "3.14"
@@ -13,10 +13,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
-  sha256: 633f2f3c2516cfa5ee5169a230bb4383644167c35acba831f2a787b0be5d05ea
+  sha256: 0d531623aaa0792deb58ebbcee16fe342cfcf8db92eee664f6a2749500216cbe
 
 build:
-  number: 1
+  number: 0
   skip: is_abi3 and not is_python_min
   python:
     version_independent: ${{ is_abi3 }}
@@ -42,7 +42,7 @@ requirements:
     - python
     - if: is_abi3
       then:
-      - python-abi3
+        - python-abi3
   run:
     - gitpython >=3.1,<4.0
     - networkx >=2.6,<4.0

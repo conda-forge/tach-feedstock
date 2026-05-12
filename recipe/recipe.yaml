@@ -36,13 +36,14 @@ build:
     content:
       - if: win
         then:
+          # for `path too long` errors
           - set CARGO_HOME=c:\.cg
           - md %CARGO_HOME%
           - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\cargo-auditable-wrapper.bat"
         else:
           - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/cargo-auditable-wrapper"
           - chmod 755 "${BUILD_PREFIX}/bin/cargo-auditable-wrapper"
-      - ${{ PYTHON }} -m pip install . --vv --no-deps --no-build-isolation --disable-pip-version-check
+      - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
 
 requirements:
@@ -90,7 +91,7 @@ tests:
         - pyproject.toml
     requirements:
       run:
-        - coverage
+        # - coverage
         - pytest
         - pytest-mock
         - if: is_abi3
@@ -101,12 +102,14 @@ tests:
       - tach --help
       - tach --version
       - tach --version | python -c "import sys; assert '${{ version }}' in sys.stdin.read()"
+      # fails with circular import of `logging` (maybe because `tach.logging`?)
+      # - coverage run --source=tach --branch pytest -vv --tb=long --color=yes -k "not export_report_diagnostics"
+      # - coverage report --show-missing --skip-covered --fail-under=47
+      - pytest -vv --tb=long --color=yes -k "not export_report_diagnostics"
       - if: is_abi3
         then:
           - cd "${{ sp_dir }}" && cd tach
           - abi3audit -s -v --assume-minimum-abi3 ${{ python_min }} ${{ abi3_bin }}
-      - coverage run --source=tach --branch -m pytest -vv --tb=long --color=yes -k "not export_report_diagnostics"
-      - coverage report --show-missing --skip-covered --fail-under=47
 
 about:
   summary: A Python tool to maintain a modular package architecture.

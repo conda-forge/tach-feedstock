@@ -91,6 +91,10 @@ requirements:
 tests:
   - package_contents:
       strict: true
+      bin:
+        - tach
+      files:
+        - etc/conda/test-files/tach/**
       site_packages:
         - tach/**
         - tach-${{ version }}.dist-info/**

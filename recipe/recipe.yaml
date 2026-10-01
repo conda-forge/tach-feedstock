@@ -50,7 +50,7 @@ build:
         then:
           # for `path too long` errors from e.g. `ruff_linter`
           - git config --system core.longpaths true
-          - copy "%RECIPE_DIR%\${{ cargo_wrapper }}" "%LIBRARY_BIN%"
+          - copy "%RECIPE_DIR%\${{ cargo_wrapper }}" "%BUILD_PREFIX%\Library\bin"
         else:
           - cp "${RECIPE_DIR}/${{ cargo_wrapper }}" "${BUILD_PREFIX}/bin/"
           - chmod 755 "${BUILD_PREFIX}/bin/${{ cargo_wrapper }}"

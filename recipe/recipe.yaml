@@ -92,7 +92,9 @@ tests:
   - package_contents:
       strict: true
       bin:
-        - tach
+        - if: not is_abi3
+          then:
+            - tach
       files:
         - etc/conda/test-files/tach/**
       site_packages:

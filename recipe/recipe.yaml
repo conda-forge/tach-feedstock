@@ -95,6 +95,9 @@ tests:
         - if: not is_abi3
           then:
             - tach
+            - if: win
+              then:
+                - tach-script.py
       files:
         - etc/conda/test-files/tach/**
       site_packages:

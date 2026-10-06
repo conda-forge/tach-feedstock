@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.35.2"
+  version: "0.35.3"
   maturin_min: "1.5"
   maturin_max: "2.0"
   cargo_wrapper: cargo-auditable-wrapper.${{ "bat" if win else "sh" }}
@@ -29,10 +29,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/t/tach/tach-${{ version }}.tar.gz
-  sha256: 513ec05cbf16a0b343daaf54480512918b6cbdd8174e98fdbfcfe4b11da5e1fd
+  sha256: 251a9cbbadd923f54668ca5f1adc4d5239ccab87fd630c5880efced235175661
 
 build:
-  number: 1
+  number: 0
   skip: is_abi3 and not is_python_min
   python:
     version_independent: ${{ is_abi3 }}
